@@ -11,6 +11,7 @@ import SearchBar from './SearchBar';
 import Cart from './Cart';
 import ProductList from './ProductList';
 import ItemDetail from './ItemDetail';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
       //   { _id: 4, title: 'beach sand', price: '$3,000.00'}],
       addedToCart: [],
       total: 0
+
     }
     this.handleSearch = this.handleSearch.bind(this);
     this.handleProductSelection = this.handleProductSelection.bind(this);
@@ -34,41 +36,43 @@ class App extends Component {
   componentDidMount() {
 
     axios.get('http://localhost:8080/')
-    .then((response) => {
-      console.log("requesting information")
-      this.setState({
-        products: response.data,
-      }
-    )
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
+      .then((response) => {
+        console.log("requesting information")
+        this.setState({
+          products: response.data,
+        }
+        )
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
-handleSearch(searchParam) {
-  console.log(searchParam)
-  axios.post('http://localhost:8080/findItems', {
-  searchWord: searchParam
-})
-.then((response) => {
-  this.setState((prevState, props) => {
-    return {
-      products: response.data,
-    }
-  })
-})
-.catch(function (error) {
-  console.log(error);
-});
-}
+  handleSearch(searchParam) {
+    console.log('searchParam', searchParam)
+    axios.post('http://localhost:8080/findItems', {
+      searchWord: searchParam
+    })
+      .then((response) => {
+        this.setState((prevState, props) => {
+          console.log('response', response.data);
+          return {
+            products: response.data,
+          }
+        })
+      })
+      .catch((error) => {
+        console.log('error');
+        this.setState({ products: [], })
+      });
+  }
 
-handleProductSelection(productId) {
-  console.log('the item was clicked')
-  this.setState((prevState, props) => {
-    return {productId: productId};
-  })
-}
+  handleProductSelection(productId) {
+    console.log('the item was clicked')
+    this.setState((prevState, props) => {
+      return { productId: productId };
+    })
+  }
 
 addItemToCart(name, cost) {
   console.log('added item to cart');
@@ -98,28 +102,48 @@ render() {
   // const totalInCart = this.totalInCart;
   const addItemToCart = this.addItemToCart;
   return (
+    <MuiThemeProvider>
     <div className="App">
       <Header />
       <SearchBar handleSearch={handleSearch} />
       <Cart removeButtonHandler={this.removeButtonHandler}
               addedToCart={this.state.addedToCart}
               total={this.state.total}
+
         />
-      <Route
-        exact path='/'
-        render={(props) => <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />}
+        <Route
+          exact path='/'
+          render={(props) => {
+            return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
+          }}
         />
-      <Route
-        path='/search'
-        render={(props) => <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />}
+        <Route
+          path='/search'
+          render={(props) => {
+            // {/* <ProductList {...props} products={products} handleProductSelection={handleProductSelection} /> */}
+            if (this.state.products.length === 0) {
+              console.log('nothing there');
+              return (
+                <div>
+                  NOTHING
+              </div>
+              )
+            } else {
+              console.log('rendering products still');
+              return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
+            }
+          }}
         />
+
       <Route
         path='/item'
         render={(props) => <ItemDetail {...props} productId={productId} addItemToCart={addItemToCart}/>}
+
         />
-    </div>
-  );
-}
+      </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;

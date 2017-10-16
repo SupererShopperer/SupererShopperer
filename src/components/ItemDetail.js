@@ -41,7 +41,7 @@ class ItemDetail extends Component {
               <div style={right}> Price:  $ {this.state.price.toLocaleString()} </div>
             </div>
             <div style={row}>
-              <div style={right}> <button> Add to Cart </button> </div>
+              <div style={right}> <button onClick={() => {this.props.addItemToCart(this.state.title, this.state.price)}}> Add to Cart </button> </div>
             </div>
           </div>
         </div>

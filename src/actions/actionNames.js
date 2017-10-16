@@ -1,0 +1,1 @@
+export const SET_BUTTON_STATUS = 'SET_BUTTON_STATUS';

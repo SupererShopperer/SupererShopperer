@@ -18,6 +18,7 @@ class ProductList extends Component {
         productId={product._id}
         title={product.title}
         price={product.price}
+        img={product.img}
         handleProductSelection={this.props.handleProductSelection}
         />
     })

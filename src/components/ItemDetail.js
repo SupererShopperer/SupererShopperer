@@ -5,7 +5,9 @@ class ItemDetail extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {};
+    this.state = {
+      price: 0,
+    };
   }
 
   componentWillMount() {
@@ -36,7 +38,7 @@ class ItemDetail extends Component {
             <div style={description}> {this.state.description} </div>
             <div style={row}>
               <div style={left}> Number in stock:  {this.state.stock_available} </div>
-              <div style={right}> Price:  {this.state.price} </div>
+              <div style={right}> Price:  $ {this.state.price.toLocaleString()} </div>
             </div>
             <div style={row}>
               <div style={right}> <button> Add to Cart </button> </div>

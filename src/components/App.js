@@ -11,6 +11,7 @@ import SearchBar from './SearchBar';
 import Cart from './Cart';
 import ProductList from './ProductList';
 import ItemDetail from './ItemDetail';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class App extends Component {
@@ -20,8 +21,8 @@ class App extends Component {
       url: 'http://localhost:8080/',
       products: [],
       productId: '',
-      addedToCart: [{ _id: 3, title: 'canola oil', price: '$5.95'},
-        { _id: 4, title: 'beach sand', price: '$3,000.00'}],
+      addedToCart: [{ _id: 3, title: 'canola oil', price: '$5.95' },
+      { _id: 4, title: 'beach sand', price: '$3,000.00' }],
       total: 3005.95
     }
     this.handleSearch = this.handleSearch.bind(this);
@@ -32,79 +33,98 @@ class App extends Component {
   componentDidMount() {
 
     axios.get('http://localhost:8080/')
-    .then((response) => {
-      console.log("requesting information")
-      this.setState({
-        products: response.data,
-      }
-    )
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
+      .then((response) => {
+        console.log("requesting information")
+        this.setState({
+          products: response.data,
+        }
+        )
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
-handleSearch(searchParam) {
-  console.log(searchParam)
-  axios.post('http://localhost:8080/findItems', {
-  searchWord: searchParam
-})
-.then((response) => {
-  this.setState((prevState, props) => {
-    return {
-      products: response.data,
-    }
-  })
-})
-.catch(function (error) {
-  console.log(error);
-});
-}
+  handleSearch(searchParam) {
+    console.log('searchParam', searchParam)
+    axios.post('http://localhost:8080/findItems', {
+      searchWord: searchParam
+    })
+      .then((response) => {
+        this.setState((prevState, props) => {
+          console.log('response', response.data);
+          return {
+            products: response.data,
+          }
+        })
+      })
+      .catch((error) => {
+        console.log('error');
+        this.setState({ products: [], })
+      });
+  }
 
-handleProductSelection(productId) {
-  console.log('the item was clicked')
-  this.setState((prevState, props) => {
-    return {productId: productId};
-  })
-}
+  handleProductSelection(productId) {
+    console.log('the item was clicked')
+    this.setState((prevState, props) => {
+      return { productId: productId };
+    })
+  }
 
-removeButtonHandler(index) {
-  console.log(index);
-  this.setState({
-    addedToCart: update(this.state.addedToCart, {$splice: [[index, 1]]})
-  });
-}
+  removeButtonHandler(index) {
+    console.log(index);
+    this.setState({
+      addedToCart: update(this.state.addedToCart, { $splice: [[index, 1]] })
+    });
+  }
 
-render() {
-  const products = this.state.products;
-  const productId = this.state.productId;
-  const handleProductSelection = this.handleProductSelection;
-  const handleSearch = this.handleSearch;
-  const itemsInCart = this.itemsInCart;
-  const totalInCart = this.totalInCart;
-  return (
-    <div className="App">
-      <Header />
-      <SearchBar handleSearch={handleSearch} />
-      <Cart removeButtonHandler={this.removeButtonHandler}
-              addedToCart={this.state.addedToCart}
-              total={this.state.total}
+  render() {
+    const products = this.state.products;
+    const productId = this.state.productId;
+    const handleProductSelection = this.handleProductSelection;
+    const handleSearch = this.handleSearch;
+    const itemsInCart = this.itemsInCart;
+    const totalInCart = this.totalInCart;
+    return (
+      <MuiThemeProvider>
+      <div className="App">
+        <Header />
+        <SearchBar handleSearch={handleSearch} />
+        <Cart removeButtonHandler={this.removeButtonHandler}
+          addedToCart={this.state.addedToCart}
+          total={this.state.total}
         />
-      <Route
-        exact path='/'
-        render={(props) => <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />}
+        <Route
+          exact path='/'
+          render={(props) => {
+            return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
+          }}
         />
-      <Route
-        path='/search'
-        render={(props) => <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />}
+        <Route
+          path='/search'
+          render={(props) => {
+            // {/* <ProductList {...props} products={products} handleProductSelection={handleProductSelection} /> */}
+            if (this.state.products.length === 0) {
+              console.log('nothing there');
+              return (
+                <div>
+                  NOTHING
+              </div>
+              )
+            } else {
+              console.log('rendering products still');
+              return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
+            }
+          }}
         />
-      <Route
-        path='/item'
-        render={(props) => <ItemDetail {...props} productId={productId} />}
+        <Route
+          path='/item'
+          render={(props) => <ItemDetail {...props} productId={productId} />}
         />
-    </div>
-  );
-}
+      </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;

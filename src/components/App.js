@@ -11,6 +11,8 @@ import SearchBar from './SearchBar';
 import Cart from './Cart';
 import ProductList from './ProductList';
 import ItemDetail from './ItemDetail';
+import Login from './Login';
+import Register from './Register';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
@@ -109,31 +111,42 @@ render() {
       <Cart removeButtonHandler={this.removeButtonHandler}
               addedToCart={this.state.addedToCart}
               total={this.state.total}
-
+      />
+      <Route
+        exact path='/login'
+        render={(props) => {
+          return <Login {...props}  />
+        }}
+      />
+      <Route 
+        exact path='/register'
+        render={(props) => {
+          return <Register {...props} />
+        }}
         />
-        <Route
-          exact path='/'
-          render={(props) => {
-            return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
-          }}
-        />
-        <Route
-          path='/search'
-          render={(props) => {
+       <Route
+        exact path='/'
+        render={(props) => {
+          return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
+        }}
+      />
+      <Route
+        path='/search'
+        render={(props) => {
             // {/* <ProductList {...props} products={products} handleProductSelection={handleProductSelection} /> */}
-            if (this.state.products.length === 0) {
-              console.log('nothing there');
-              return (
-                <div>
+          if (this.state.products.length === 0) {
+            console.log('nothing there');
+            return (
+              <div>
                   NOTHING
               </div>
-              )
-            } else {
+            )
+          } else {
               console.log('rendering products still');
               return <ProductList {...props} products={products} handleProductSelection={handleProductSelection} />
-            }
-          }}
-        />
+          }
+       }}
+      />
 
       <Route
         path='/item'

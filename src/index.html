@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>LOGIN</h1>
+        <form method="POST" action='/login'>
+           <input name="username" type="text" placeholder="username"/>
+           <input name="password" type="text" placeholder="password"/>
+           <input type="submit" value="login"/>
+        </form>
+
+        <form action="https://github.com/login/oauth/authorize" method="get">
+            <input type="hidden" name="scope" value="user:email" />
+            <input type="hidden" name="client_id" value="174cd191ab6c866f3007" />
+            <input type="submit" value="Sign in with GitHub" />
+          </form>
+          <a href="https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=174cd191ab6c866f3007">asdfasdf</a>
+          <a href='./signup'>Sign up</a>
+
+        <form>
+            
+        </form>
+    </body>
+</html>

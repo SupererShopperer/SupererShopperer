@@ -6,6 +6,7 @@ import axios from 'axios';
 // styles
 import '../styles/App.css';
 // components
+import Login from './Login';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Cart from './Cart';
@@ -101,6 +102,10 @@ render() {
       <Route
         path='/item'
         render={(props) => <ItemDetail {...props} productId={productId} />}
+        />
+      <Route
+        path='/login'
+        render={(props) => <LoginDropdown {...props} />}
         />
     </div>
   );

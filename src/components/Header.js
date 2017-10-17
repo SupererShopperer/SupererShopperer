@@ -24,6 +24,7 @@ class Header extends Component {
         <Link to='/'>
           <img style={imgStyle} src={homeLogo} />
           </Link>
+        <a href="https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=174cd191ab6c866f3007"><button className="oAuth">BUTTON</button></a>
       </div>
     );
   }

@@ -20,10 +20,11 @@ const totalStyle = {
 class Cart extends Component {
 
   render() {
+    console.log('addeditemstocart', this.props.addedToCart);
     let itemsArray = this.props.addedToCart.map((item, index) => {
-      return <div>
+      return <div key={index}>
         <span style={{float: 'left'}}>
-          <button onClick={() => this.props.removeButtonHandler(index)}> X </button>
+          <button onClick={() => this.props.removeButtonHandler(index, item.price)}> X </button>
           &nbsp;
           {item.title}
         </span>

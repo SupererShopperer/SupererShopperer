@@ -16,7 +16,6 @@ class ItemDetail extends Component {
       _id: this.props.productId,
     })
     .then((response) => {
-      console.log(response)
       this.setState(response.data[0])
     })
     .catch(function (error) {

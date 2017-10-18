@@ -12,9 +12,7 @@ import {
 class Checkout extends Component {
     
     render () {
-        console.log('addeditemstocart', this.props.addedToCart);
         let itemsArray = this.props.addedToCart.map((item, index) => {
-            console.log('item ', item.title);
             return ( // must put parenthesis on this line to render correctly
             <TableRow>
                 <TableRowColumn>{item.title}</TableRowColumn>
@@ -31,8 +29,7 @@ class Checkout extends Component {
             </ TableRow>
 
         )});
-          console.log('addeditemstocart', this.props.addedToCart);
-          console.log('itemsArray', itemsArray);
+
         return (
             <div>
             <Table>

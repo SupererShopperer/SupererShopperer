@@ -23,7 +23,6 @@ const totalStyle = {
 class Cart extends Component {
 
   render() {
-    console.log('addeditemstocart', this.props.addedToCart);
     let itemsArray = this.props.addedToCart.map((item, index) => {
       return <div key={index}>
         <span style={{float: 'left', alignItems: 'left', display: 'flex'}}>
@@ -43,7 +42,6 @@ class Cart extends Component {
         <br />
       </div>;
     });
-    console.log('testing itemsarray in cart', itemsArray)
 
     return (
       <div style={styles}>

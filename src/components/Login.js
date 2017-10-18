@@ -41,6 +41,17 @@ class Login extends Component {
         });
     }
 
+    handleGithub(event) {
+        console.log('running handleGithub');
+        axios.get('https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=174cd191ab6c866f3007', { crossdomain: true })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(err) {
+                console.log('git error: ' + err);
+            })
+    }
+
     render () {
         return (
             <div className>
@@ -60,7 +71,8 @@ class Login extends Component {
                     <br/>
                     <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)} />
                 <a href="https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=174cd191ab6c866f3007">
-                <RaisedButton label="Login with GitHub" primary={true} style={style} /></a>
+                <RaisedButton label="Login with GitHub" primary={true} style={style} /*onClick={(this.handleGithub)}*/ />
+                </a>
             </div>
         )
     }

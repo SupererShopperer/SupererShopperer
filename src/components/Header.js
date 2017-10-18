@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import homeLogo from '../img/homeIcon.png';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
   width: '100%',
@@ -24,6 +25,13 @@ class Header extends Component {
         <Link to='/'>
           <img style={imgStyle} src={homeLogo} />
         </Link>
+        <br/>
+        <RaisedButton
+        containerElement={<Link to="/login" />}
+        linkButton={true}
+        label="Login"
+        primary={true} 
+        />
       </div>
     );
   }

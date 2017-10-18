@@ -5,6 +5,7 @@ import update from 'react-addons-update';
 import axios from 'axios';
 // styles
 import '../styles/App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // components
 import Header from './Header';
 import SearchBar from './SearchBar';
@@ -15,7 +16,7 @@ import ItemDetail from './ItemDetail';
 import Login from './Login';
 import Register from './Register';
 import Checkout from './Checkout';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 
 class App extends Component {

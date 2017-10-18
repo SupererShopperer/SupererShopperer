@@ -25,6 +25,7 @@ itemController.getTopItems = (req, res, next) => {
     if (data.rows.length === 0) {
       return res.status(200).end('Not Found');  
     }
+    res.cookie('cookie', 'cookie');
     return res.status(200).end(JSON.stringify(data.rows));
   });       
 };

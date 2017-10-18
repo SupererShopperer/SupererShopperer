@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import DeleteButton from './DeleteButton';
+import { Link } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
   padding: '6px',
@@ -23,8 +26,14 @@ class Cart extends Component {
     console.log('addeditemstocart', this.props.addedToCart);
     let itemsArray = this.props.addedToCart.map((item, index) => {
       return <div key={index}>
-        <span style={{float: 'left'}}>
-          <button onClick={() => this.props.removeButtonHandler(index, item.price)}> X </button>
+        <span style={{float: 'left', alignItems: 'left', display: 'flex'}}>
+          {/* <button onClick={() => this.props.removeButtonHandler(index, item.price)}> X </button> */}
+          <DeleteButton 
+            removeButtonHandler={this.props.removeButtonHandler}
+            /* index={index}
+            price={item.price}
+            removeButtonHandler={this.props.removeButtonHandler} */
+            />
           &nbsp;
           {item.title}
         </span>
@@ -47,6 +56,10 @@ class Cart extends Component {
           <span style={{textAlign: 'right'}}>
             {'$ ' + this.props.total}
           </span>
+          <span>
+            <Link to='/checkout'><FlatButton label="CHECKOUT" style={{color: 'white'}} hoverColor='#3a5d72' /></Link>
+            {/* <button onClick={() => {this.props.handleCheckout}}>CHECKOUT</button> */}
+            </span>
         </div>
       </div>
     );

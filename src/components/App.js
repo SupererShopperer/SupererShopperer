@@ -7,13 +7,15 @@ import axios from 'axios';
 import '../styles/App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // components
-import Login from './Login';
-import Register from './Register';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Cart from './Cart';
+import DeleteButton from './DeleteButton';
 import ProductList from './ProductList';
 import ItemDetail from './ItemDetail';
+import Login from './Login';
+import Register from './Register';
+import Checkout from './Checkout';
 
 
 
@@ -24,8 +26,6 @@ class App extends Component {
       url: 'http://localhost:8080/',
       products: [],
       productId: '',
-      // addedToCart: [{ _id: 3, title: 'canola oil', price: '$5.95'},
-      //   { _id: 4, title: 'beach sand', price: '$3,000.00'}],
       addedToCart: [],
       total: 0
 
@@ -34,6 +34,7 @@ class App extends Component {
     this.handleProductSelection = this.handleProductSelection.bind(this);
     this.removeButtonHandler = this.removeButtonHandler.bind(this);
     this.addItemToCart = this.addItemToCart.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
   }
 
   componentDidMount() {
@@ -87,6 +88,10 @@ addItemToCart(name, cost) {
     addedToCart: cart
   });
 }
+handleCheckout(e) {
+  e.preventDefault();
+  this.props.history.push('/checkout');
+}
 
 removeButtonHandler(index, cost) {
   console.log(index);
@@ -101,9 +106,8 @@ render() {
   const productId = this.state.productId;
   const handleProductSelection = this.handleProductSelection;
   const handleSearch = this.handleSearch;
-  // const itemsInCart = this.itemsInCart;
-  // const totalInCart = this.totalInCart;
   const addItemToCart = this.addItemToCart;
+  const handleCheckout = this.handleCheckout;
   return (
     <MuiThemeProvider>
     <div className="App">
@@ -112,7 +116,9 @@ render() {
       <Cart removeButtonHandler={this.removeButtonHandler}
               addedToCart={this.state.addedToCart}
               total={this.state.total}
+              handleCheckout={handleCheckout}
       />
+     
       <Route
         exact path='/login'
         render={(props) => {
@@ -125,6 +131,12 @@ render() {
           return <Register {...props} />
         }}
         />
+       <Route
+       exact path='/checkout'
+       render={(props) => {
+         return <Checkout {...props} addedToCart={this.state.addedToCart}/>
+       }}
+       />
        <Route
         exact path='/'
         render={(props) => {
@@ -152,8 +164,8 @@ render() {
       <Route
         path='/item'
         render={(props) => <ItemDetail {...props} productId={productId} addItemToCart={addItemToCart}/>}
-
         />
+      
       </div>
       </MuiThemeProvider>
     );

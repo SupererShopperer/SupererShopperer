@@ -50,6 +50,17 @@ class Login extends Component {
         });
     }
 
+    handleGithub(event) {
+        console.log('running handleGithub');
+        axios.get('https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=174cd191ab6c866f3007', { crossdomain: true })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(err) {
+                console.log('git error: ' + err);
+            })
+    }
+
     render () {
         return (
             <div className>
@@ -71,6 +82,7 @@ class Login extends Component {
                       onChange = {(event, newValue) => this.setState({password: newValue})}
                     />
                     <br/>
+
                     <RaisedButton 
                       label="Submit" 
                       primary={true} 
@@ -92,6 +104,7 @@ class Login extends Component {
                       onClick={(event) => this.handleClick(event)} 
                     />
                 </DropDownMenu>
+
             </div>
         )
     }

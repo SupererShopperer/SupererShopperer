@@ -9,7 +9,6 @@ const userController = require('./controllers/userController');
 const client_id = "174cd191ab6c866f3007";
 const clientSecret ="7bc6aee9827703c5faf8e35763d89cf97c091e60";
 const cors = require('cors');
-const client_id = '174cd191ab6c866f3007';
 const client_secret = '7bc6aee9827703c5faf8e35763d89cf97c091e60';
 const request = require('request');
 

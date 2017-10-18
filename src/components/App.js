@@ -10,7 +10,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import Cart from './Cart';
-import DeleteButton from './DeleteButton';
 import ProductList from './ProductList';
 import ItemDetail from './ItemDetail';
 import Login from './Login';
@@ -41,7 +40,6 @@ class App extends Component {
 
     axios.get('http://localhost:8080/')
       .then((response) => {
-        console.log("requesting information")
         this.setState({
           products: response.data,
         }
@@ -53,13 +51,12 @@ class App extends Component {
   }
 
   handleSearch(searchParam) {
-    console.log('searchParam', searchParam)
+
     axios.post('http://localhost:8080/findItems', {
       searchWord: searchParam
     })
       .then((response) => {
         this.setState((prevState, props) => {
-          console.log('response', response.data);
           return {
             products: response.data,
           }
@@ -72,19 +69,16 @@ class App extends Component {
   }
 
   handleProductSelection(productId) {
-    console.log('the item was clicked')
     this.setState((prevState, props) => {
       return { productId: productId };
     })
   }
 
 addItemToCart(name, cost) {
-  console.log('added item to cart');
   let cart = this.state.addedToCart;
   cart.push({title: name, price: cost});
-  console.log('updated cart', cart);
   this.setState({
-    total: this.state.total + cost,
+    total: (Math.round((this.state.total + cost) * 100)) / 100,
     addedToCart: cart
   });
 }
@@ -94,8 +88,6 @@ handleCheckout(e) {
 }
 
 removeButtonHandler(index, cost) {
-  console.log('index of removed???', index);
-  console.log('cost', cost, 'typof', typeof cost);
   this.setState({
     total:(Math.round((this.state.total - cost) * 100)) / 100,
     addedToCart: update(this.state.addedToCart, {$splice: [[index, 1]]})

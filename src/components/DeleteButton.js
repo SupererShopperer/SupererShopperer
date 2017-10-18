@@ -11,8 +11,10 @@ const styles= {
 
 class DeleteButton extends Component {
     render () {
+        console.log('ITEM HELP ME!!!', this.props.item)
+        console.log('whats in the INDEXXXXX?', this.props.index)
         return (
-            <button onClick={() => {this.props.removeButtonHandler(this.props.index, this.props.price)}}> X </button>
+            <button onClick={() => {this.props.removeButtonHandler(this.props.index, this.props.item.price)}}> X </button>
             // <Checkbox 
             // onCheck={() => this.props.removeButtonHandler(this.props.index, this.props.price)} 
             // checkIcon={<RemoveCircle />}

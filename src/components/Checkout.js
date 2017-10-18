@@ -13,10 +13,9 @@ class Checkout extends Component {
     
     render () {
         console.log('addeditemstocart', this.props.addedToCart);
-        let itemsArray = this.props.addedToCart.map((item) => {
-            console.log('item ', item.title)
-            return 
-
+        let itemsArray = this.props.addedToCart.map((item, index) => {
+            console.log('item ', item.title);
+            return ( // must put parenthesis on this line to render correctly
             <TableRow>
                 <TableRowColumn>{item.title}</TableRowColumn>
                 <TableRowColumn>{item.price}</TableRowColumn>
@@ -25,12 +24,15 @@ class Checkout extends Component {
                         /* index={index}
                         price={item.price} */
                         removeButtonHandler={this.props.removeButtonHandler}
+                        item={item}
+                        index={index}
                     />
                 </TableRowColumn>
             </ TableRow>
 
-          });
-          console.log(itemsArray);
+        )});
+          console.log('addeditemstocart', this.props.addedToCart);
+          console.log('itemsArray', itemsArray);
         return (
             <div>
             <Table>

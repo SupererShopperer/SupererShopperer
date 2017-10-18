@@ -30,9 +30,8 @@ class Cart extends Component {
           {/* <button onClick={() => this.props.removeButtonHandler(index, item.price)}> X </button> */}
           <DeleteButton 
             removeButtonHandler={this.props.removeButtonHandler}
-            /* index={index}
-            price={item.price}
-            removeButtonHandler={this.props.removeButtonHandler} */
+            item={item}
+            index={index}
             />
           &nbsp;
           {item.title}
@@ -44,6 +43,7 @@ class Cart extends Component {
         <br />
       </div>;
     });
+    console.log('testing itemsarray in cart', itemsArray)
 
     return (
       <div style={styles}>

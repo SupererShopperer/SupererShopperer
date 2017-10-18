@@ -93,9 +93,10 @@ handleCheckout(e) {
 }
 
 removeButtonHandler(index, cost) {
-  console.log(index);
+  console.log('index of removed???', index);
+  console.log('cost', cost, 'typof', typeof cost);
   this.setState({
-    total: Math.round((this.state.total - cost) * 100) / 100,
+    total:(Math.round((this.state.total - cost) * 100)) / 100,
     addedToCart: update(this.state.addedToCart, {$splice: [[index, 1]]})
   });
 }
@@ -133,7 +134,7 @@ render() {
        <Route
        exact path='/checkout'
        render={(props) => {
-         return <Checkout {...props} addedToCart={this.state.addedToCart}/>
+         return <Checkout {...props} addedToCart={this.state.addedToCart} removeButtonHandler={this.removeButtonHandler}/>
        }}
        />
        <Route

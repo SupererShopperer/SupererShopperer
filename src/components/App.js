@@ -104,13 +104,15 @@ render() {
   return (
     <MuiThemeProvider>
     <div className="App">
-      <Header />
-      <SearchBar handleSearch={handleSearch} />
-      <Cart removeButtonHandler={this.removeButtonHandler}
+      <Header 
+              removeButtonHandler={this.removeButtonHandler}
               addedToCart={this.state.addedToCart}
               total={this.state.total}
               handleCheckout={handleCheckout}
+              handleSearch={handleSearch}
       />
+
+
      
       <Route
         exact path='/login'

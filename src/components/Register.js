@@ -9,41 +9,33 @@ class Register extends Component {
   constructor(props){
     super(props);
     this.state={
-      first_name:'',
-      last_name:'',
-      email:'',
+      firstname:'',
+      lastname:'',
+      username:'',
       password:''
     }
   }
 
   handleClick(event){
-    var apiBaseUrl = "http://localhost:8080/api/";
-    console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
+    let apiBaseUrl = "http://localhost:8080/api";
+    console.log("values",this.state.firstname,this.state.lastname,this.state.username,this.state.password);
     //To be done:check for empty values before hitting submit
-    var self = this;
-    var payload={
-        "first_name": this.state.first_name,
-        "last_name": this.state.last_name,
-        "email": this.state.email,
+    let self = this;
+    let payload={
+        "firstname": this.state.firstname,
+        "lastname": this.state.lastname,
+        "username": this.state.username,
         "password": this.state.password
     }
-    axios.post(apiBaseUrl+'/register', payload)
+    axios.post(apiBaseUrl + '/register', payload)
    .then(function (response) {
      console.log(response);
      if(response.data.code === 200){
-       console.log("registration successfull");
-       var loginscreen=[];
-       loginscreen.push(<Login parentContext={this}/>);
-       var loginmessage = "Not Registered yet.Go to registration";
-       self.props.parentContext.setState({loginscreen:loginscreen,
-       loginmessage:loginmessage,
-       buttonLabel:"Register",
-       isLogin:true
-        });
+       console.log('This is from the handleClick func')
      }
    })
    .catch(function (error) {
-     console.log(error);
+     console.log('This is from the handleClick func', error);
    });
   }
 
@@ -57,20 +49,20 @@ class Register extends Component {
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"
-             onChange = {(event,newValue) => this.setState({first_name: newValue})}
+             onChange = {(event,newValue) => this.setState({firstname: newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your Last Name"
              floatingLabelText="Last Name"
-             onChange = {(event,newValue) => this.setState({last_name: newValue})}
+             onChange = {(event,newValue) => this.setState({lastname: newValue})}
              />
            <br/>
            <TextField
              hintText="Enter your Email"
              type="email"
              floatingLabelText="Email"
-             onChange = {(event,newValue) => this.setState({email: newValue})}
+             onChange = {(event,newValue) => this.setState({username: newValue})}
              />
            <br/>
            <TextField
@@ -88,4 +80,5 @@ class Register extends Component {
 const style = {
   margin: 15,
 };
+
 export default Register;

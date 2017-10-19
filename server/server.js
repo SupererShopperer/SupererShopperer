@@ -16,14 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/api', userController.createUser);
+app.get('/api/login', userController.verifyUser);
 
-app.get('/api', userController.getUser);
+app.post('/api/register', userController.createUser);
 
 app.get('/', itemController.getTopItems);
-
-// app.get('/', (res, req) => console.log('sdgdrsgdfsgdsfgdfgdfgdfg')
-// );
 
 app.post('/findItems', metaController.searchItems,
     itemController.getAllItemsFromIds);
@@ -36,14 +33,6 @@ app.post('/addNewItem', itemController.addNewItem,
 
 app.get('/githubauth', (req, res) => {
     const accessCode = req.query.code;
-    // console.log('entering auth');
-    // res.cookie('outCookie', 'cooookie');
-    // res.end();
-
-    // request('https://github.com/login/oauth/authorize?scope=user:email&amp;client_id=174cd191ab6c866f3007')
-    // res.header('Access-Control-Allow-Origin', req.headers.origin);
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    // console.log(res);
     res.cookie('cook', 'cook', {domain:'http://localhost:3000', httpOnly: false});
     
     request(`https://github.com/login/oauth/access_token?client_id=${client_id}&amp;client_secret=${client_secret}&amp;code=${accessCode}`, function (err, response, body) {
@@ -64,27 +53,27 @@ app.get('/githubauth', (req, res) => {
     })
 })
 
-app.get('/githubauth', (req, res) => {
-  const accessCode = req.query.code;
-  console.log('outside, getting token');
-  request(`https://github.com/login/oauth/access_token?client_id=${client_id}&amp;client_secret=${clientSecret}&amp;code=${accessCode}`, function(err, response, body) {
-  console.log('trying to get token inside')  
-  const accessToken = body.split('=')[1].split('&')[0];
-  console.log(body);
-  console.log(accessToken);
-  res.cookie('accessToken', accessToken);
-  });
+// app.get('/githubauth', (req, res) => {
+//   const accessCode = req.query.code;
+//   console.log('outside, getting token');
+//   request(`https://github.com/login/oauth/access_token?client_id=${client_id}&amp;client_secret=${clientSecret}&amp;code=${accessCode}`, function(err, response, body) {
+//   console.log('trying to get token inside')  
+//   const accessToken = body.split('=')[1].split('&')[0];
+//   console.log(body);
+//   console.log(accessToken);
+//   res.cookie('accessToken', accessToken);
+//   });
                           
-  request.get({url: 'https://api.github.com/user/emails?access_token=' + accessToken, headers: {'User-Agent': 'USER LURKER APP'}}, function(err, response, body) {
-  console.log('PASSED');
-  const userEmail = JSON.parse(body)[0].email;
-  req.body.username = userEmail;
-  req.body.password = "oauthmaster";
-  userController.verifyUser(req, res, userController.createUser); //already makes cookie through many redirections
-  });
+//   request.get({url: 'https://api.github.com/user/emails?access_token=' + accessToken, headers: {'User-Agent': 'USER LURKER APP'}}, function(err, response, body) {
+//   console.log('PASSED');
+//   const userEmail = JSON.parse(body)[0].email;
+//   req.body.username = userEmail;
+//   req.body.password = "oauthmaster";
+//   userController.verifyUser(req, res, userController.createUser); //already makes cookie through many redirections
+//   });
 
   
-});
+// });
 
 
 app.listen(8080); //listens on port 8080 -> http://localhost:8080/

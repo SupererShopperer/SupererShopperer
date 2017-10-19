@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import update from 'react-addons-update';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 // styles
 import '../styles/App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -100,6 +101,10 @@ removeButtonHandler(index, cost) {
     total:(Math.round((this.state.total - cost) * 100)) / 100,
     addedToCart: update(this.state.addedToCart, {$splice: [[index, 1]]})
   });
+}
+
+goToLogin() {
+  this.props.history.push("/login");
 }
 
 render() {

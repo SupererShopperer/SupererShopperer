@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import homeLogo from '../img/homeIcon.png';
 import RaisedButton from 'material-ui/RaisedButton';
+import Cart from './Cart';
+import SearchBar from './SearchBar';
 
 const styles = {
   width: '100%',
@@ -23,15 +25,24 @@ class Header extends Component {
     return (
       <div style={styles}>
         <Link to='/'>
-          <img style={imgStyle} src={homeLogo} />
+          <img style={imgStyle} src={homeLogo} alt="Home"/>
         </Link>
         <br/>
+        <div style={{display: 'inline-block', float: 'left', position: 'relative', left: '100px'}}>
         <RaisedButton
         containerElement={<Link to="/login" />}
-        linkButton={true}
         label="Login"
         primary={true} 
         />
+        </div>
+        <div style={{display: 'inline-block', float: 'left', position: 'relative', left: '150px'}}>
+        <Cart removeButtonHandler={this.props.removeButtonHandler}
+              addedToCart={this.props.addedToCart}
+              total={this.props.total}
+              handleCheckout={this.props.handleCheckout}
+      />
+      </div>
+      <SearchBar handleSearch={this.props.handleSearch} />
       </div>
     );
   }

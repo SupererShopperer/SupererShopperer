@@ -32,7 +32,7 @@ class ItemDetail extends Component {
         <div style={item} >
           <h2>{this.state.title}</h2>
           <div style={details} >
-            <img style={imgStyle} src={this.state.img} />
+            <img style={imgStyle} src={this.state.img} alt=""/>
             <div style={summary}> {this.state.summary} </div>
             <div style={description}> {this.state.description} </div>
             <div style={row}>

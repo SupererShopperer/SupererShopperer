@@ -40,7 +40,7 @@ class Product extends Component {
         >
         <Paper style={itemStyle} zDepth={3}>
         {/* <div style={styles}> */}
-        <img src={this.props.img} height='200px' />
+        <img src={this.props.img} height='200px' alt=""/>
           <h3>{this.props.title}</h3>
           <p>$ {this.props.price.toLocaleString()}</p>
         {/* </div> */}
